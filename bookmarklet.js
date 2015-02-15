@@ -1,4 +1,34 @@
 (function() {
+  var version = "0.1.0";
+  console.log("Version: " + version);
+  
+  var isDev = typeof isDev !== 'undefined' && isDev ;
+  var isTest = typeof isTest !== 'undefined' && isTest ;
+  
+  var hostOrigin = "https://qoomon.github.io/Jira-Agile-Backlog-Dependency-Checker/";
+  if(isDev){
+    console.log("DEVELOPMENT");
+    hostOrigin = "https://rawgit.com/qoomon/Jira-Agile-Backlog-Dependency-Checker/develop/";
+  }
+  if(isTest){
+    console.log("TEST");
+  }
+  
+  // <GoogleAnalytics>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-50840116-3', {'alwaysSendReferrer': true});
+  if(isTest || isDev){
+    ga('set', 'page', '/dev/backlogchecker');
+  } else {
+    ga('set', 'page', '/backlogchecker');
+  }
+  
+  ga('send', 'pageview');
+ 
   jQuery.fn.isAfter = function(sel){
     return this.prevAll().filter(sel).length !== 0;
   };
