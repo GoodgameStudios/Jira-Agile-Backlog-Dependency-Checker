@@ -76,7 +76,7 @@
             issueElement.find('.ghx-end.ghx-row').prepend(warning); 
             warning.click(function(){
               jQuery('html, #ghx-backlog').animate({
-                scrollTop: jQuery('[data-issue-key="'+dependencyIssueKey+'"]').offset().top - jQuery(".ghx-backlog-container").offset().top - 50 
+                scrollTop: jQuery('[data-issue-key="'+dependencyIssueKey+'"]').offset().top - jQuery(".ghx-backlog-container").offset().top - 10 
               }, 500);
               return false;
             })
