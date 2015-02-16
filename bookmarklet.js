@@ -1,5 +1,5 @@
 (function() {
-  var version = "0.1.0";
+  var version = "0.1.2";
   console.log("Version: " + version);
   
   var isDev = typeof isDev !== 'undefined' && isDev ;
