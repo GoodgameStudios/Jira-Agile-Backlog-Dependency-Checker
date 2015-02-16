@@ -65,7 +65,10 @@
       loadDataJSON(issueKey, function(responseData){
         var issueLinks = responseData.fields.issuelinks;
         jQuery.each(issueLinks,function(position, issue) {
-          if(issue.type.name == "Blocker" && issue.inwardIssue){
+          if(
+            (issue.type.name == 'Blocker' 
+              ||issue.type.name == 'Gantt Dependency') // for xplosion 
+              && issue.inwardIssue){
             var dependencyIssueKey = issue.inwardIssue.key;
             if (issueElement.isBefore('[data-issue-key='+dependencyIssueKey+']')) {
 
