@@ -70,25 +70,29 @@
               ||issue.type.name == 'Gantt Dependency') // for xplosion 
               && issue.inwardIssue){
             var dependencyIssueKey = issue.inwardIssue.key;
+            
+            var warning = jQuery('<a href="/browse/'+dependencyIssueKey+'" title="'+dependencyIssueKey+'">'+dependencyIssueKey+'</a>');              warning.addClass('blocked-warning aui-label ghx-label-2 ghx-label ghx-label-double');              warning.attr('title', issue.type.inward + ' ' + dependencyIssueKey);
+             
+            issueElement.find('.ghx-end.ghx-row').prepend(warning); 
+            warning.click(function(){
+              jQuery('html, #ghx-backlog').animate({
+                scrollTop: jQuery('[data-issue-key="'+dependencyIssueKey+'"]').offset().top - jQuery(".ghx-backlog-container").offset().top - 50 
+              }, 500);
+              return false;
+            })
+            
             if (issueElement.isBefore('[data-issue-key='+dependencyIssueKey+']')) {
-
-              var warning = jQuery('<a href="/browse/'+dependencyIssueKey+'" title="'+dependencyIssueKey+'">↯ '+dependencyIssueKey+'</a>');
-              warning.addClass('blocked-warning aui-label ghx-label-2 ghx-label ghx-label-double');
-              warning.attr('title', issue.type.inward + ' ' + dependencyIssueKey);
               warning.css('color', 'FIREBRICK');
               warning.css('background-color', 'white');
               warning.css('border-color', 'FIREBRICK');
               warning.css('border-width', '2px');
               warning.css('font-weight', 'bold');
-              
-              warning.click(function(){
-                jQuery('html, #ghx-backlog').animate({
-                  scrollTop: jQuery('[data-issue-key=TST-62493]').offset().top - jQuery(".ghx-backlog-container").offset().top - 50 
-                }, 500);
-                return false;
-              })
-
-              issueElement.find('.ghx-end.ghx-row').prepend(warning);
+            } else {
+              warning.css('color', 'LIMEGREEN');
+              warning.css('background-color', 'white');
+              warning.css('border-color', 'LIMEGREEN');
+              warning.css('border-width', '1px');
+              warning.css('font-weight', 'bold');
             }
           }
         })
