@@ -68,13 +68,14 @@
           if(
             (issue.type.name == 'Blocker' 
               ||issue.type.name == 'Gantt Dependency') // for xplosion 
-              && issue.inwardIssue){
+              && issue.inwardIssue && issue.inwardIssue.fields.status.statusCategory.name != 'Complete'){
             var dependencyIssueKey = issue.inwardIssue.key;
-            
-            var warning = jQuery('<a href="/browse/'+dependencyIssueKey+'" title="'+dependencyIssueKey+'">'+dependencyIssueKey+'</a>');              warning.addClass('blocked-warning aui-label ghx-label-2 ghx-label ghx-label-double');              warning.attr('title', issue.type.inward + ' ' + dependencyIssueKey);
+            var dependency_lable = jQuery('<a href="/browse/' + dependencyIssueKey + '" title="' + dependencyIssueKey + '">' + dependencyIssueKey + '</a>');              
+            dependency_lable.addClass('blocked-warning aui-label ghx-label-2 ghx-label ghx-label-double');              
+            dependency_lable.attr('title', issue.type.inward + ' ' + dependencyIssueKey);
              
-            issueElement.find('.ghx-end.ghx-row').prepend(warning); 
-            warning.click(function(){
+            issueElement.find('.ghx-end.ghx-row').prepend(dependency_lable); 
+            dependency_lable.click(function(){
               jQuery('html, #ghx-backlog').animate({
                 scrollTop: jQuery('[data-issue-key="'+dependencyIssueKey+'"]').offset().top - jQuery(".ghx-backlog-container").offset().top - 10 
               }, 500);
@@ -82,17 +83,17 @@
             })
             
             if (issueElement.isBefore('[data-issue-key='+dependencyIssueKey+']')) {
-              warning.css('color', 'FIREBRICK');
-              warning.css('background-color', 'white');
-              warning.css('border-color', 'FIREBRICK');
-              warning.css('border-width', '2px');
-              warning.css('font-weight', 'bold');
+              dependency_lable.css('color', 'FIREBRICK');
+              dependency_lable.css('background-color', 'white');
+              dependency_lable.css('border-color', 'FIREBRICK');
+              dependency_lable.css('border-width', '2px');
+              dependency_lable.css('font-weight', 'bold');
             } else {
-              warning.css('color', 'LIMEGREEN');
-              warning.css('background-color', 'white');
-              warning.css('border-color', 'LIMEGREEN');
-              warning.css('border-width', '1px');
-              warning.css('font-weight', 'bold');
+              dependency_lable.css('color', 'LIMEGREEN');
+              dependency_lable.css('background-color', 'white');
+              dependency_lable.css('border-color', 'LIMEGREEN');
+              dependency_lable.css('border-width', '1px');
+              dependency_lable.css('font-weight', 'bold');
             }
           }
         })
